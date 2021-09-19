@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <title>..:: Erro ::..</title>
+        </f:facet>
+
+
+        <script>
+            function goBack() {
+                window.history.back()
+            }
+        </script>
+    </h:head>
+
+    <!--<h:body styleClass="exception-body error" style="background-color: #4680ca">-->
+    <h:body styleClass="login-body" style="background-color: #fec104">
+        <center>
+            <div class="exception-panel" style="margin-top: 54px;">
+                <div class="exception-image">
+                    <p:graphicImage name="/exception/icon-error.png" library="imagens" />
+                </div>
+
+                <div class="exception-detail">
+                    <h1>OCORREU UM ERRO</h1>
+                    <p>Houve algum erro no processamento da página.</p>
+                    <p:button onclick="goBack()" value="VOLTAR" />
+                </div>
+            </div>
+        </center>
+        <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="sapphire-layout" />
+    </h:body>
+
+</html>

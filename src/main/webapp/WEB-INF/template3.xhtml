@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      lang="en">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <link rel="shortcut icon" href="#{facesContext.externalContext.requestContextPath}/resources/imagens/favicon1.ico" type="image/x-icon" />
+        <title><ui:insert name="title">..:: Prevenção é vida ::..</ui:insert></title>
+        <h:outputScript name="js/nanoscroller.js" library="sapphire-layout" />
+        <h:outputScript name="js/layout.js" library="sapphire-layout" />
+        <h:outputScript name="js/ripple.js" library="sapphire-layout" />
+        <h:outputScript name="locale-primefaces.js" library="js" />
+        <ui:insert name="head"/>
+        
+        <SCRIPT language="JavaScript">
+
+            var g_iCount = new Number();
+           
+            var g_iCount = 1805;
+            var segundos = 60;
+
+            function startCountdown() {
+                if ((g_iCount - 1) >= 0) {
+                    g_iCount = g_iCount - 1;
+                    segundos = segundos - 1;
+                    
+                    numberCountdown.innerText = 'A sessão irá expirar em 00:'+parseInt(g_iCount/60)+':' + segundos;
+                    setTimeout('startCountdown()', 1000);
+                    
+                    if(segundos == 0){
+                        segundos = 60;
+                    }
+                    if (g_iCount == 0){
+                         window.location.href = "/portaldatransparencia/index.xhtml";
+                    }
+                    
+                }
+            }
+        </SCRIPT> 
+    </h:head>
+
+    <h:body onload="startCountdown();">
+        
+        <h:outputText id="numberCountdown" style="float: right; color: white; visibility: hidden" />
+        
+        <div class="layout-container layout-menu-#{guestPreferences.menuTheme} layout-topbar-#{guestPreferences.topBar} #{guestPreferences.horizontal ? 'layout-menu-horizontal' : ''} layout-top-#{guestPreferences.topBarSize}">
+            <div class="layout-top">
+                <!--<ui:include src="./topbar3.xhtml" />-->
+
+                <!--                <div class="layout-breadcrumb">
+                                    <ul>
+                                        <li><p:link outcome="/pages/user/departamento-usuario"><i class="material-icons">&#xE88A;</i></p:link></li>
+                                        <li><i class="material-icons">chevron_right</i></li>
+                                        <ui:insert name="breadcrumb" />
+                                    </ul>
+                                </div>-->
+                <!--                <center>                                     <label class="overview-numbers" style="color: #ff9800;font-size: 30px">Sistema de Informação ao Cidadão</label>-->
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <h:panelGrid columns="2">
+
+                            <p:graphicImage name="logo2.png" library="imagens" style="height: 120px; margin-top: 20px;"/>
+                            <h:panelGroup>
+                                <p style="color: white; font-family: Roboto, Helvetica Neue, sans-serif; margin-left: 20px; text-shadow: 1px 2px #000;">
+                                    <label style="font-size: 50px; ">Consulta de Remuneração</label>
+                                    <br/>
+                                    <br/>
+                                    <label style="font-size: 20px; margin-left: 5px;">Selecione um filtro para listar os valores</label>
+                                </p>
+                            </h:panelGroup>
+                        </h:panelGrid>
+                    </div>
+                </div>
+
+
+                <!--</center>-->
+            </div>
+
+            <div class="layout-content">
+                <ui:insert name="content"/>
+            </div>
+
+            <!--<ui:include src="./config.xhtml" />-->
+
+            <div class="layout-mask"></div>
+
+            <ui:include src="./footer.xhtml" />
+        </div>
+
+        <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+            <f:facet name="start">
+                <i class="fa fa-circle-o-notch fa-spin ajax-loader" aria-hidden="true"></i>
+            </f:facet>
+
+            <f:facet name="complete">
+                <h:outputText value="" />
+            </f:facet>
+        </p:ajaxStatus>
+
+        <h:outputStylesheet name="css/nanoscroller.css" library="sapphire-layout" />
+        <h:outputStylesheet name="css/ripple.css" library="sapphire-layout" />
+        <h:outputStylesheet name="css/grid.css" library="sapphire-layout" />
+        <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="sapphire-layout" />
+    </h:body>
+
+</html>

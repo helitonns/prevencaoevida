@@ -1,0 +1,106 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <h:form id="form">
+
+
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <label class="overview-numbers" style="color: #000;font-size: 30px">Evento</label>
+                    <div class="card card-w-title" style="margin-top: 5px">
+
+                        <p:messages globalOnly="true" closable="true"/>
+
+                        <div style="margin-left: 20px; color: #000; font-size: 20px">Gerenciar eventos</div>
+
+                        <div class="ui-g ui-fluid form-group" style="margin-top: 10px">
+
+                            <div class="ui-g-12 ui-md-8">
+                                <p:message for="idNumeroVagas" showSummary="true" showDetail="false"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-4"/>
+
+
+                            <div class="ui-g-12 ui-md-4">
+                                <div class="ui-inputgroup">
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText id="idNumeroVagas" value="#{eventoMB.evento.numeroDeVagas}" required="true" requiredMessage="Campo obrigatório!">
+                                            <f:convertNumber/>
+                                        </p:inputText>
+                                        <label>Digite a quantidade de vagas do evento</label>
+                                    </h:panelGroup>     
+                                </div>
+                            </div>
+
+
+                            <div class="ui-g-12 ui-md-4">
+                                <p:commandButton value="Salvar" action="#{eventoMB.salvar()}" ajax="false" icon="ui-icon-save"/>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-4">
+                                <p:commandButton value="Cancelar" action="#{eventoMB.cancelar()}" style="background-color: #F57F17" icon="ui-icon-cancel" immediate="true"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+        <h:form id="form2">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <div class="card card-w-title">
+                        <div style="margin-left: 20px; color: #000; font-size: 20px">Eventos cadastrados</div>
+
+                        <div class="ui-g ui-fluid form-group" style="margin-top: 20px">
+
+                            <div class="ui-g-12 ui-md-12">
+                                <p:dataTable var="evento_var" value="#{eventoMB.eventos}" reflow="true" rowKey="#{evento_var.id}" paginator="true" rows="10" emptyMessage=" ">
+                                    <p:column headerText="Id" style="width: 70px;">
+                                        <h:outputText value="#{evento_var.id}" />
+                                    </p:column>
+
+                                    <p:column headerText="Nome">
+                                        <h:outputText value="#{evento_var.numeroDeVagas}" />
+                                    </p:column>
+
+                                    <p:column headerText="Ação" style="width:  150px;">
+                                        <p:commandButton value="Excluir" icon="ui-icon-cancel"  style="width: 100%; background-color: #F57F17"  actionListener="#{eventoMB.setEvento(evento_var)}" onclick="PF('modal_excluir_pais').show();">
+                                            <f:setPropertyActionListener value="#{evento_var}" target="#{eventoMB.evento}"/>
+                                        </p:commandButton>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </div>
+
+                        <p:dialog header="Exclusão" widgetVar="modal_excluir_pais" modal="true" height="100" width="550">
+                            <h:panelGrid columns="2" style="width: 100%">
+                                <h:outputText value="Tem certeza que deseja excluir o item selecionado?" style="width: 100%"/>
+                                <p:selectOneButton value="#{eventoMB.removerEvento}">
+                                    <f:selectItem itemLabel="Sim" itemValue="#{true}" />
+                                    <f:selectItem itemLabel="Não" itemValue="#{false}" />
+                                </p:selectOneButton>
+                            </h:panelGrid>
+
+                            <f:facet name="footer">
+                                <h:panelGrid columns="2" style="width: 100%">
+                                    <p:commandButton value="Excluir" icon="ui-icon-delete" ajax="false" action="#{eventoMB.remover()}" style="width: 100%"/>
+                                    <p:button value="Cancelar" icon="ui-icon-cancel" styleClass="blue-grey-btn"  style="width: 100%; background-color: #F57F17"/>
+                                </h:panelGrid>
+                            </f:facet>
+                        </p:dialog>
+
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

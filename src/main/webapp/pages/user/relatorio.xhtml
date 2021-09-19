@@ -1,0 +1,128 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <h:form id="form" style="min-height: 100vh">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <div class="card card-w-title">
+                        <p:messages globalOnly="true" closable="true"/>
+
+                        <div style="margin-left: 20px; color: #000; font-size: 20px">Ouvintes cadastrados</div>
+
+                        <div class="ui-g ui-fluid form-group" style="margin-top: 20px">
+                            <div class="ui-g-12 ui-md-6">
+                                <p:selectOneMenu value="#{relatorioMB.parametroEscolhido}"   required="false">
+                                    <f:selectItem itemLabel="Selecione o tipo de presença" />
+                                    <f:selectItem itemLabel="Geral" itemValue="#{0}"/>
+                                    <f:selectItem itemLabel="Presencial" itemValue="#{1}"/>
+                                    <f:selectItem itemLabel="Remoto" itemValue="#{2}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="ui-g-12 ui-md-6">
+                                <p:commandButton value="Pesquisar" update="tbl_relatorio" action="#{relatorioMB.pesquisarTiposPresenca()}" ajax="false" icon="ui-icon-check" style="width: 100%"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-12">	
+                                <p:dataTable var="frequencia_var" id="tbl_relatorio" value="#{relatorioMB.frequencias}" reflow="true" rowKey="#{frequencia_var.id}" paginator="true" rows="10" emptyMessage=" "
+                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros">
+                                    <p:column headerText="Id" style="width: 70px;">
+                                        <h:outputText value="#{frequencia_var.id}" />
+                                    </p:column>
+
+                                    <p:column headerText="Ouvinte" sortBy="#{frequencia_var.ouvinte.nome}" filterBy="#{frequencia_var.ouvinte.nome}" >
+                                        <h:outputText value="#{frequencia_var.ouvinte.nome}" />
+                                    </p:column>
+
+                                    <p:column headerText="E-mail" visible="false">
+                                        <h:outputText value="#{frequencia_var.ouvinte.email}" />
+                                    </p:column>
+                                    <p:column headerText="CEP" visible="false">
+                                        <h:outputText value="#{frequencia_var.ouvinte.cep}" />
+                                    </p:column>
+                                    <p:column headerText="Bairro" visible="false">
+                                        <h:outputText value="#{frequencia_var.ouvinte.cep}" />
+                                    </p:column>
+                                    <p:column headerText="Logradouro" visible="false">
+                                        <h:outputText value="#{frequencia_var.ouvinte.logradouro}" />
+                                    </p:column>
+                                    <p:column headerText="Número" visible="false">
+                                        <h:outputText value="#{frequencia_var.ouvinte.numero}" />
+                                    </p:column>
+
+                                    <p:column headerText="Tipo" sortBy="#{frequencia_var.ouvinte.presencial ? 'PRESENCIAL' : 'REMOTO'}">
+                                        <h:outputText value="#{frequencia_var.ouvinte.presencial ? 'PRESENCIAL' : 'REMOTO'}" />
+                                    </p:column>
+
+                                    <p:column headerText="Presença" exportable="false" sortBy="#{frequencia_var.presenca1 ? 'PRESENTE' : 'AUSENTE'}">
+                                        <p:commandButton id="id-btn-ausente" action="#{relatorioMB.atualizarPresenca()}" icon="ui-icon-minus" rendered="#{frequencia_var.presenca1 == false}"   style="background-color: #391d5b">
+                                            <f:setPropertyActionListener value="#{frequencia_var}" target="#{relatorioMB.frequencia}"/>
+                                            <p:tooltip for="id-btn-ausente" value="Clique para confirmar a presença" />
+                                        </p:commandButton>
+
+                                        <p:commandButton id="id-btn-presente" icon="ui-icon-check-circle" action="#{relatorioMB.atualizarPresenca()}"  styleClass="green-btn"  rendered="#{frequencia_var.presenca1 == true}">
+                                            <f:setPropertyActionListener value="#{frequencia_var}" target="#{relatorioMB.frequencia}"/>
+                                            <p:tooltip for="id-btn-presente" value="Presente" />
+                                        </p:commandButton>
+                                    </p:column>
+
+                                    <p:column headerText="Presença" visible="false">
+                                        <h:outputText value="#{frequencia_var.presenca1 ? 'PRESENTE' : 'AUSENTE'}" />
+                                    </p:column>
+
+                                    <p:column headerText="Ações" visible="#{startMB.superAdmin}" exportable="false">
+                                        <p:commandButton id="id-btn-editar" icon="ui-icon-pencil" styleClass="orange-btn" ajax="false" action="#{relatorioMB.editarOuvinte}">
+                                            <f:setPropertyActionListener value="#{frequencia_var.ouvinte}" target="#{relatorioMB.ouvinte}"/>
+                                            <p:tooltip for="id-btn-editar" value="Editar" />
+                                        </p:commandButton>
+                                        <p:commandButton id="id-btn-apagar" icon="ui-icon-delete" styleClass="red-btn" actionListener="#{relatorioMB.removerOuvinte}" style="margin-left: 10px;" onclick="PF('modal_excluir').show();">
+                                            <f:setPropertyActionListener value="#{frequencia_var}" target="#{relatorioMB.frequencia}"/>
+                                            <p:tooltip for="id-btn-apagar" value="Apagar" />
+                                        </p:commandButton>
+                                    </p:column>
+
+                                </p:dataTable>
+                            </div>
+                            <div class="ui-g-12 ui-md-8"/>
+                            <div class="ui-g-12 ui-md-4">
+
+                                <div class="ui-g-6">
+                                    <p:commandButton value="PDF" action="#{relatorioMB.exportaPdf()}" ajax="false" icon="ui-icon-file-download"/>
+                                </div>
+                                <div class="ui-g-6">
+                                    <p:commandButton value="EXCEL" ajax="false" icon="ui-icon-file-download" style="background-color: #F57F17">
+                                        <p:dataExporter type="xls" target="tbl_relatorio"  fileName="relatorio-presença"/>
+                                    </p:commandButton>
+                                </div>    
+                            </div>
+                        </div>
+
+
+                        <p:dialog header="Exclusão" widgetVar="modal_excluir" modal="true" height="100" width="550">
+                            <h:panelGrid columns="2" style="width: 100%">
+                                <h:outputText value="Tem certeza que deseja excluir o item selecionado?" style="width: 100%"/>
+                                <p:selectOneButton value="#{relatorioMB.removerOuvinte}">
+                                    <f:selectItem itemLabel="Sim" itemValue="#{true}" />
+                                    <f:selectItem itemLabel="Não" itemValue="#{false}" />
+                                </p:selectOneButton>
+                            </h:panelGrid>
+
+                            <f:facet name="footer">
+                                <h:panelGrid columns="2" style="width: 100%">
+                                    <p:commandButton value="Excluir" icon="ui-icon-delete" ajax="false" action="#{relatorioMB.removerOuvinte()}" style="width: 100%"/>
+                                    <p:button value="Cancelar" icon="ui-icon-cancel" styleClass="blue-grey-btn"  style="width: 100%; background-color: #F57F17"/>
+                                </h:panelGrid>
+                            </f:facet>
+                        </p:dialog>
+
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

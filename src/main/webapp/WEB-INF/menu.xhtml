@@ -1,0 +1,36 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:sm="http://primefaces.org/sapphire">
+
+    <div id="layout-menu-container" class="layout-menu-container">
+        <div id="layout-nano" class="nano">
+            <div class="nano-content sidebar-scroll-content">
+                <div class="layout-menu-wrapper">
+                    <h:form id="menuform">
+                        <sm:menu>
+
+                            <p:menuitem id="menu_home" value="Home" icon="home" outcome="/pages/user/home" rendered="#{startMB.ouvinte}" />
+                            
+                            <p:menuitem id="menu_cad_ouvinte" value="Cadastro de ouvinte" style="color: #085025 !important" icon="person" outcome="/pages/user/cadastro-ouvinte" rendered="#{!startMB.ouvinte}"/>
+                            
+                            <p:submenu id="sub_menu_usuario" label="Configurações gerais" icon="settings" rendered="#{startMB.admin || startMB.superAdmin}">
+                                <p:menuitem id="menu_usuario" value="Usuários" icon="person" outcome="/pages/admin/usuario" />
+                                <p:menuitem id="menu_usuario_s" value="Super Usuários" icon="person" outcome="/pages/superadmin/superusuario" rendered="#{startMB.superAdmin}"/>
+                                <p:menuitem id="menu_video" value="Vídeo" icon="computer" outcome="/pages/superadmin/video" rendered="#{startMB.superAdmin}"/>                                
+                                <p:menuitem id="menu_entidade" value="Entidade" icon="home" outcome="/pages/superadmin/entidade" rendered="false"/>                                
+                                <p:menuitem id="menu_evento" value="Evento" icon="repeat" outcome="/pages/superadmin/evento" rendered="#{startMB.superAdmin}"/>                                
+                            </p:submenu>
+
+                            <p:menuitem id="menu_relatorio" value="Relatório" icon="assignment" outcome="/pages/user/relatorio" rendered="#{!startMB.ouvinte}"/>
+                        </sm:menu>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ui:composition>

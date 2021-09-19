@@ -1,0 +1,72 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:stella="http://stella.caelum.com.br/faces2"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template1.xhtml">
+
+
+    <ui:define name="content">
+
+        <h:form id="form" style="min-height: 100vh">
+            <p:messages globalOnly="true" closable="true"/>
+
+            <div class="ui-g" style="width: 100% !important;">
+                <div class="ui-g-12">
+                    <div class="card card-w-title" style="width: 100% !important;">
+
+                        <div id="introduction" style="margin-left: auto; margin-right: auto; text-align: center; color: #000">
+                            <div style="font-size: 20px">
+                                <h3>Recupere sua senha</h3>
+                            </div>
+                        </div>
+
+                        <!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO000000000000O PAINEL DO SOLICITANTE OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO-->
+                        <h:panelGroup >
+                            <div class="card card-w-title">
+                                <div style="margin-left: 20px; color: #000">Informe seu e-mail:</div>
+                                <div class="ui-g ui-fluid form-group">
+                                    <div id="msgEmail" class="ui-g-12 ui-md-12">
+                                        <p:message for="idEmail" showSummary="true" showDetail="false"/>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-12">
+                                        <h:panelGroup styleClass="md-inputfield">
+                                            <h:panelGroup styleClass="md-inputfield">
+                                                <p:inputText id="idEmail" value="#{indexMB.login}" required="true" requiredMessage="Campo obrigatório!" validatorMessage="O e-mail digitado não está dentro do padrão!">
+                                                    <f:validateRegex pattern="(^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$)|()" />
+                                                </p:inputText> 
+                                                <label>E-mail: *</label>
+                                            </h:panelGroup>
+                                        </h:panelGroup>  
+                                    </div>
+                                </div>
+
+                                <br/>
+                                <label style="font-style: italic; font-size: 16px;color: #000; margin-left: 15px;">*Uma nova senha será enviada para o e-mail informado</label>
+                            </div>
+                        </h:panelGroup>
+
+                        <!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO000000000000O00000000000000000OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO-->
+                        <h:panelGroup>
+                            <div class="card card-w-title">
+                                <div class="ui-g ui-fluid form-group">
+                                    <div class="ui-g-12 ui-md-12 ui-lg-6"/>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                        <p:commandButton value="Enviar" action="#{indexMB.recuperarSenha()}" ajax="false" icon="ui-icon-save" style="width: 100%"/>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                        <p:commandButton value="Cancelar" action="#{indexMB.cancelar()}" immediate="true" styleClass="blue-grey-btn" icon="ui-icon-cancel" style="background-color: #F57F17; width: 100%" />
+                                    </div>
+                                </div>
+                            </div>
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

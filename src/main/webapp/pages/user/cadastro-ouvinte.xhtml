@@ -1,0 +1,170 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:stella="http://stella.caelum.com.br/faces2"
+                template="../../WEB-INF/template.xhtml">
+
+
+    <ui:define name="content">
+        <h:form id="form" style="min-height: 100vh;">
+            
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <label class="overview-numbers" style="color: #000;font-size: 30px;">Cadastro de ouvinte</label>
+                    <div class="card card-w-title" style="margin-top: 5px">
+
+                        <p:messages globalOnly="true" closable="true"/>
+
+                        <div class="ui-g ui-fluid form-group">
+
+                            <div class="ui-g-12 ui-md-6">
+                                <p:message for="idCPF" showSummary="true" showDetail="false" style="message-error"/>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-6">
+                                <p:message for="idNome" showSummary="true" showDetail="false"/>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-6">
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputMask id="idCPF" value="#{indexMB.ouvinte.cpf}" mask="999.999.999-99" style="width: 100%;" required="true" requiredMessage="Campo obrigatório!">
+                                        <stella:validateCPF/>
+                                        <p:ajax  partialSubmit="true" update="form"/>
+                                    </p:inputMask>
+                                    <label>CPF: *</label>
+                                </h:panelGroup>  
+                            </div>
+
+                            <div class="ui-g-12 ui-md-6">
+                                <div class="ui-inputgroup">
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText id="idNome" value="#{indexMB.ouvinte.nome}" converter="upper" required="true" requiredMessage="Campo obrigatório!"/>
+                                        <label>Nome completo: *</label>
+                                    </h:panelGroup>     
+                                </div>
+                            </div>
+
+
+                            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                <p:message for="idCEP" showSummary="true" showDetail="false"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                <p:message for="idBairro" showSummary="true" showDetail="false"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                <p:message for="idLogradouro" showSummary="true" showDetail="false"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                <p:message for="idNumero" showSummary="true" showDetail="false"/>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                <div class="ui-inputgroup">
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputMask id="idCEP" mask="99999999" value="#{indexMB.ouvinte.cep}" requiredMessage="Campo obrigatório!" valueChangeListener="#{indexMB.buscarEnderecoListener}">
+                                            <p:ajax update="idBairro idLogradouro"/>
+                                        </p:inputMask>
+                                        <label>CEP (somente números): </label>
+                                    </h:panelGroup>
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                <div class="ui-inputgroup">
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText id="idBairro" value="#{indexMB.ouvinte.bairro}" converter="upper" required="true" requiredMessage="Campo obrigatório!"/>
+                                        <label>Bairro: *</label>
+                                    </h:panelGroup>     
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                <div class="ui-inputgroup">
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText id="idLogradouro" value="#{indexMB.ouvinte.logradouro}" converter="upper" required="true" requiredMessage="Campo obrigatório!"/>
+                                        <label>Logradouro: *</label>
+                                    </h:panelGroup>     
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                <div class="ui-inputgroup">
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText id="idNumero" value="#{indexMB.ouvinte.numero}" converter="upper" required="true" requiredMessage="Campo obrigatório!"/>
+                                        <label>Número: *</label>
+                                    </h:panelGroup>     
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-6">
+                                <p:message for="idTelefone" showSummary="true" showDetail="false"/>
+                            </div>
+                            <div id="msgEmail" class="ui-g-12 ui-md-6">
+                                <p:message for="idEmail" showSummary="true" showDetail="false"/>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-6">
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputMask id="idTelefone" value="#{indexMB.ouvinte.telefone}" mask="(99) 99999-9999" style="width: 100%;" required="true" requiredMessage="Campo obrigatório"/>
+                                    <label>Telefone: *</label>
+                                </h:panelGroup>  
+                            </div>
+
+                            <div class="ui-g-12 ui-md-6">
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText id="idEmail" value="#{indexMB.ouvinte.email}" required="true" requiredMessage="Campo obrigatório!" validatorMessage="O e-mail digitado não está dentro do padrão!" valueChangeListener="#{indexMB.preencherLogin}">
+                                            <f:validateRegex pattern="(^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$)|()" />
+                                            <p:ajax update="idEmail"/>
+                                        </p:inputText> 
+                                        <label>E-mail: * (não deixe espaço em branco no final)</label>
+                                    </h:panelGroup>
+                                </h:panelGroup>  
+                            </div>
+
+                            <div class="ui-g-12 ui-md-4">
+                                <label>Estudante? *</label>
+                                <p:selectOneMenu value="#{indexMB.ouvinte.estudante}" style="margin-top: 10px" valueChangeListener="#{indexMB.habilitarInstituicaoListener}">
+                                    <f:selectItem itemLabel="NÃO" itemValue="NÃO"/>
+                                    <f:selectItem itemLabel="SIM - ENS. MÉDIO" itemValue="SIM - ENS. MÉDIO"/>
+                                    <f:selectItem itemLabel="SIM - ENS. SUPERIOR" itemValue="SIM - ENS. SUPERIOR"/>
+                                    <f:selectItem itemLabel="SIM - ENS. OUTRO" itemValue="SIM - ENS. OUTRO"/>
+                                    <p:ajax update="slcInstituicao"/>
+                                </p:selectOneMenu>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-4">
+                                <div class="ui-inputgroup">
+                                    <h:panelGroup  styleClass="md-inputfield">
+                                        <p:inputText id="slcInstituicao" value="#{indexMB.ouvinte.entidade}" converter="upper" disabled="#{!indexMB.habilitarInstituicao}" requiredMessage="Campo obrigatório!" />
+                                        <label>Digite a Instituição de ensino: </label>
+                                    </h:panelGroup>     
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-4">
+                                <label>Participação *</label>
+                                <p:selectOneMenu value="#{indexMB.ouvinte.presencial}" style="margin-top: 10px">
+                                    <f:selectItem itemLabel="REMOTA" itemValue="#{false}"/>
+                                    <f:selectItem itemLabel="PRESENCIAL" itemValue="#{true}"/>
+                                </p:selectOneMenu>
+                            </div>
+
+
+                            <div class="ui-g-12 ui-md-6 ui-sm-12">
+                                <p:commandButton value="Salvar" action="#{indexMB.cadastrarOuvinte()}" ajax="false" icon="ui-icon-save" style="width: 100%"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-6 ui-sm-12">
+                                <p:commandButton value="Cancelar" action="#{indexMB.cancelarCadastro()}" immediate="true" icon="ui-icon-cancel" style="width: 100%; background-color: #F57F17" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

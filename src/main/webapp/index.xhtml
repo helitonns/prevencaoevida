@@ -1,0 +1,285 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:stella="http://stella.caelum.com.br/faces2"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template1.xhtml">
+
+
+    <ui:define name="content">
+
+        <h:form id="form" style="min-height: 100vh">
+            <p:messages globalOnly="true" closable="true"/>
+
+
+
+            <div class="ui-g" style="width: 100% !important;">
+                <div class="ui-g-12">
+                    <div class="card card-w-title" style="width: 100% !important;">
+
+                        <div id="introduction" style="margin-left: auto; margin-right: auto; text-align: center; color: #EA2B81;">
+                            <p:graphicImage name="tamb.png" library="imagens" />
+                        </div>
+
+
+                        <h:panelGroup class="none" rendered="#{!indexMB.exibirFormulario}" style="width: 100%">
+                            <div class="card card-w-title" style="margin-top: 40px;">
+
+                                <div class="ui-g ui-fluid form-group" >
+                                    <div class="ui-g-12">
+                                        <div style="margin-left: 20px; color: #085025">
+                                            <h2 style="text-align: center">Convidados do evento</h2>
+                                        </div>
+                                    </div>
+
+                                    <div class="ui-g-6 ui-md-6 ui-sm-12">
+                                        <center>
+                                            <p:graphicImage name="convidado1.png" library="imagens" style="border-radius: 10px;" />
+                                        </center>
+                                    </div>
+                                    <div class="ui-g-6 ui-md-6 ui-sm-12">
+                                        <center>
+                                            <p:graphicImage name="convidado2.png" library="imagens" style="border-radius: 10px;"/>
+                                        </center>
+                                    </div>
+<!--                                </div>
+                            </div>
+                        </h:panelGroup>
+
+                        <h:panelGroup class="none" rendered="# {!indexMB.exibirFormulario}" style="width: 100%">
+                            <div class="card card-w-title" style="margin-top: 40px;">
+                                <div class="ui-g ui-fluid form-group" style="margin-top: 20px">-->
+                                    <div class="ui-g-12">
+                                        <div style="color: #085025">
+                                            <h2 style="text-align: center">Mediadora</h2>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12">
+                                        <center>
+                                            <p:graphicImage name="deputada.png" library="imagens" style="border-radius: 10px;"/>
+                                        </center>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </h:panelGroup>
+
+                        <h:panelGroup class="none" rendered="#{!indexMB.exibirFormulario}" style="width: 100%">
+                            <div class="card card-w-title" style="margin-top: 40px;">
+                                <div style="margin-left: 20px; color: #085025">
+                                    <h3 style="text-align: center">Participe de todo o evento de forma virtual ou presencial e receba o certificado de participação para horas complementares!</h3>
+                                </div>
+                                <div class="ui-g ui-fluid form-group" style="margin-top: 20px">
+                                    <div class="ui-g-6 ui-sm-12">
+                                        <p:commandButton value="INSCREVA-SE" icon="ui-icon-person" ajax="false" action="#{indexMB.exibirFormulario()}" style="width: 100%; height: 45px; "/>
+                                    </div>
+                                    <div class="ui-g-6 ui-sm-12">
+                                        <p:commandButton value="ENTRAR" icon="ui-icon-computer" ajax="false" action="#{indexMB.irParaLogin()}" style="width: 100%; height: 45px;"/>
+                                    </div>
+                                </div>
+                                <div style="margin-left: 20px; color: #085025">
+                                    <h3 style="text-align: center">Para mais informações, entre em contato pelo número (95) 99110-8383</h3>
+                                </div>
+                            </div>
+                        </h:panelGroup>
+
+                        <!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO000000000000O PAINEL DO SOLICITANTE OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO-->
+                        <h:panelGroup rendered="#{indexMB.exibirFormulario}">
+                            <div class="card card-w-title">
+                                <div style="margin-left: 20px;">Preencha o cadastro:</div>
+                                <div class="ui-g ui-fluid form-group">
+                                    <div class="ui-g-12 ui-md-6">
+                                        <p:message for="idCPF" showSummary="true" showDetail="false"/>
+                                    </div>
+
+                                    <div class="ui-g-12 ui-md-6">
+                                        <p:message for="idNome" showSummary="true" showDetail="false"/>
+                                    </div>
+
+                                    <div class="ui-g-12 ui-md-6">
+                                        <h:panelGroup styleClass="md-inputfield">
+                                            <p:inputMask id="idCPF" value="#{indexMB.ouvinte.cpf}" mask="999.999.999-99" style="width: 100%;" required="true" requiredMessage="Campo obrigatório!">
+                                                <stella:validateCPF/>
+                                                <p:ajax  partialSubmit="true" update="form"/>
+                                            </p:inputMask>
+                                            <label>CPF: * </label>
+                                        </h:panelGroup>  
+                                    </div>
+
+                                    <div class="ui-g-12 ui-md-6">
+                                        <div class="ui-inputgroup">
+                                            <h:panelGroup styleClass="md-inputfield">
+                                                <p:inputText id="idNome" value="#{indexMB.ouvinte.nome}" converter="upper" required="true" requiredMessage="Campo obrigatório!"/>
+                                                <label>Nome completo: *</label>
+                                            </h:panelGroup>     
+                                        </div>
+                                    </div>
+
+                                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                        <p:message for="idCEP" showSummary="true" showDetail="false"/>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                        <p:message for="idBairro" showSummary="true" showDetail="false"/>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                        <p:message for="idLogradouro" showSummary="true" showDetail="false"/>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                        <p:message for="idNumero" showSummary="true" showDetail="false"/>
+                                    </div>
+
+                                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                        <div class="ui-inputgroup">
+                                            <h:panelGroup styleClass="md-inputfield">
+                                                <p:inputMask id="idCEP" mask="99999999" value="#{indexMB.ouvinte.cep}" requiredMessage="Campo obrigatório!" valueChangeListener="#{indexMB.buscarEnderecoListener}">
+                                                    <p:ajax update="idBairro idLogradouro"/>
+                                                </p:inputMask>
+                                                <label>CEP (somente números): </label>
+                                            </h:panelGroup>     
+                                        </div>
+                                    </div>
+
+                                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                        <div class="ui-inputgroup">
+                                            <h:panelGroup styleClass="md-inputfield">
+                                                <p:inputText id="idBairro" value="#{indexMB.ouvinte.bairro}" converter="upper" required="true" requiredMessage="Campo obrigatório!"/>
+                                                <label>Bairro: *</label>
+                                            </h:panelGroup>     
+                                        </div>
+                                    </div>
+
+                                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                        <div class="ui-inputgroup">
+                                            <h:panelGroup styleClass="md-inputfield">
+                                                <p:inputText id="idLogradouro" value="#{indexMB.ouvinte.logradouro}" converter="upper" required="true" requiredMessage="Campo obrigatório!"/>
+                                                <label>Logradouro: *</label>
+                                            </h:panelGroup>     
+                                        </div>
+                                    </div>
+
+                                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                        <div class="ui-inputgroup">
+                                            <h:panelGroup styleClass="md-inputfield">
+                                                <p:inputText id="idNumero" value="#{indexMB.ouvinte.numero}" converter="upper" required="true" requiredMessage="Campo obrigatório!"/>
+                                                <label>Número: *</label>
+                                            </h:panelGroup>     
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="ui-g-12 ui-md-6">
+                                        <p:message for="idTelefone" showSummary="true" showDetail="false"/>
+                                    </div>
+                                    <div id="msgEmail" class="ui-g-12 ui-md-6">
+                                        <p:message for="idEmail" showSummary="true" showDetail="false"/>
+                                    </div>
+
+                                    <div class="ui-g-12 ui-md-6">
+                                        <h:panelGroup styleClass="md-inputfield">
+                                            <p:inputMask id="idTelefone" value="#{indexMB.ouvinte.telefone}" mask="(99) 99999-9999" style="width: 100%;" required="true" requiredMessage="Campo obrigatório"/>
+                                            <label>Telefone: *</label>
+                                        </h:panelGroup>  
+                                    </div>
+
+                                    <div class="ui-g-12 ui-md-6">
+                                        <h:panelGroup styleClass="md-inputfield">
+                                            <h:panelGroup styleClass="md-inputfield">
+                                                <p:inputText id="idEmail" value="#{indexMB.ouvinte.email}" required="true" requiredMessage="Campo obrigatório!" validatorMessage="O e-mail digitado não está dentro do padrão!">
+                                                    <f:validateRegex pattern="(^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$)|()" />
+                                                </p:inputText> 
+                                                <label>E-mail: * (não deixe espaço em branco no final)</label>
+                                            </h:panelGroup>
+                                        </h:panelGroup>  
+                                    </div>
+
+                                    <div id="msgEmail" class="ui-g-12 ui-md-6">
+                                        <p:message for="idSenha1" showSummary="true" showDetail="false"/>
+                                    </div>
+                                    <div id="msgEmail" class="ui-g-12 ui-md-6">
+                                        <p:message for="idSenha2" showSummary="true" showDetail="false"/>
+                                    </div>
+
+                                    <div class="ui-g-12 ui-md-6">
+                                        <div class="ui-inputgroup">
+                                            <h:panelGroup styleClass="md-inputfield">
+                                                <p:password id="idSenha1" value="#{indexMB.senha1}"  required="true" requiredMessage="Campo obrigatório!" match="idSenha2" validatorMessage="As senhas digitadas devem ser iguais e ter no mínimo 8 dígitos">
+                                                    <f:validateLength minimum="8" />
+                                                </p:password>
+                                                <label>Digite sua senha: * (mínimo 8 dígitos)</label>
+                                            </h:panelGroup>     
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6">
+                                        <div class="ui-inputgroup">
+                                            <h:panelGroup styleClass="md-inputfield">
+                                                <p:password id="idSenha2" value="#{indexMB.senha2}"  required="true" requiredMessage="Campo obrigatório!" validatorMessage="As senhas digitadas devem ser iguais e ter no mínimo 8 dígitos">
+                                                    <f:validateLength minimum="8" />
+                                                </p:password>
+                                                <label>Repita a senha digitada: * (mínimo 8 dígitos)</label>
+                                            </h:panelGroup>     
+                                        </div>
+                                    </div>
+
+                                    <div class="ui-g-12 ui-md-4">
+                                        <label>Estudante? *</label>
+                                        <p:selectOneMenu value="#{indexMB.ouvinte.estudante}" style="margin-top: 10px" valueChangeListener="#{indexMB.habilitarInstituicaoListener}">
+                                            <f:selectItem itemLabel="NÃO" itemValue="NÃO"/>
+                                            <f:selectItem itemLabel="SIM - ENS. MÉDIO" itemValue="SIM - ENS. MÉDIO"/>
+                                            <f:selectItem itemLabel="SIM - ENS. SUPERIOR" itemValue="SIM - ENS. SUPERIOR"/>
+                                            <f:selectItem itemLabel="SIM - ENS. OUTRO" itemValue="SIM - ENS. OUTRO"/>
+                                            <p:ajax update="slcInstituicao"/>
+                                        </p:selectOneMenu>
+                                    </div>
+
+                                    <div class="ui-g-12 ui-md-4">
+                                        <div class="ui-inputgroup">
+                                            <h:panelGroup  styleClass="md-inputfield">
+                                                <p:inputText id="slcInstituicao" value="#{indexMB.ouvinte.entidade}" converter="upper" disabled="#{!indexMB.habilitarInstituicao}" requiredMessage="Campo obrigatório!" />
+                                                <label>Digite a Instituição de ensino: </label>
+                                            </h:panelGroup>     
+                                        </div>
+                                    </div>
+
+                                    <div class="ui-g-12 ui-md-4">
+                                        <label>Participação *</label>
+                                        <p:selectOneMenu value="#{indexMB.ouvinte.presencial}" style="margin-top: 10px">
+                                            <f:selectItem itemLabel="REMOTA" itemValue="#{false}"/>
+                                            <f:selectItem itemLabel="PRESENCIAL" itemValue="#{true}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+
+
+
+                                </div>
+
+                                <br/>
+                                <label style="font-style: italic; font-size: 16px;color: #000; margin-left: 15px;">*O login do usuário será o e-mail cadastrado</label>
+                            </div>
+                        </h:panelGroup>
+
+                        <!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO000000000000O00000000000000000OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO-->
+                        <h:panelGroup rendered="#{indexMB.exibirFormulario}">
+                            <div class="card card-w-title">
+                                <div class="ui-g ui-fluid form-group">
+                                    <div class="ui-g-12 ui-md-12 ui-lg-6"/>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                        <p:commandButton value="Salvar" action="#{indexMB.salvarOuvinte()}" ajax="false" icon="ui-icon-save" style="width: 100%"/>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                                        <p:commandButton value="Cancelar" action="#{indexMB.cancelar()}" immediate="true" style="background-color: #F57F17; width: 100%" icon="ui-icon-cancel" />
+                                    </div>
+                                </div>
+                            </div>
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,156 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <h:form id="form">
+
+
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <label class="overview-numbers" style="color: #000;font-size: 30px">Vídeo</label>
+                    <div class="card card-w-title" style="margin-top: 5px">
+
+                        <p:messages globalOnly="true" closable="true"/>
+
+                        <div style="margin-left: 20px; color: #000; font-size: 20px">Gerenciar vídeos</div>
+
+                        <div class="ui-g ui-fluid form-group" style="margin-top: 10px">
+
+                            <div class="ui-g-12 ui-md-12">
+                                <p:message for="idNome" showSummary="true" showDetail="false"/>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-12">
+                                <div class="ui-inputgroup">
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText id="idNome" value="#{homeMB.video.nome}" converter="upper" required="true" requiredMessage="Campo obrigatório!"/>
+                                        <label>Digite o nome do vídeo</label>
+                                    </h:panelGroup>     
+                                </div>
+                            </div>
+                            
+                            <div class="ui-g-12 ui-md-6">
+                                <p:message for="idSrc" showSummary="true" showDetail="false"/>
+                            </div>
+                            <div class="ui-g-12 ui-md-6">
+                                <p:message for="idSrc2" showSummary="true" showDetail="false"/>
+                            </div>
+                            
+                            <div class="ui-g-12 ui-md-6">
+                                <div class="ui-inputgroup">
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText id="idSrc" value="#{homeMB.video.src}" required="true" requiredMessage="Campo obrigatório!"/>
+                                        <label>Digite o link normal do vídeo</label>
+                                    </h:panelGroup>     
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-6">
+                                <div class="ui-inputgroup">
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText id="idSrc2" value="#{homeMB.video.src2}" required="false" requiredMessage="Campo obrigatório!"/>
+                                        <label>Digite o link embed do vídeo</label>
+                                    </h:panelGroup>     
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-6">
+                                <p:calendar value="#{homeMB.video.dataEvento}" pattern="dd/MM/yyyy HH:mm" placeholder="Digite a data e o horário do evento">
+                                    <f:convertDateTime type="localDateTime" pattern="dd/MM/yyyy HH:mm"/>
+                                </p:calendar>
+                            </div>
+                            <div class="ui-g-12 ui-md-6">
+                                <p:calendar value="#{homeMB.video.dataFinalPresenca}" pattern="dd/MM/yyyy HH:mm" placeholder="Digite a data e o horário finais para confirmar presença">
+                                    <f:convertDateTime type="localDateTime" pattern="dd/MM/yyyy HH:mm"/>
+                                </p:calendar>
+                            </div>
+
+
+                            <div class="ui-g-12 ui-md-6">
+                                <p:commandButton value="Salvar" action="#{homeMB.salvarVideo}" ajax="false" icon="ui-icon-save"/>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-6">
+                                <p:commandButton value="Cancelar" action="#{homeMB.cancelarCadastro()}" style="background-color: #F57F17" icon="ui-icon-cancel" immediate="true"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+        <h:form id="form2">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <div class="card card-w-title">
+                        <div style="margin-left: 20px; color: #000; font-size: 20px">Vídeos cadastrados</div>
+
+                        <div class="ui-g ui-fluid form-group" style="margin-top: 20px">
+
+                            <div class="ui-g-12 ui-md-12">
+                                <p:dataTable var="video_var" value="#{homeMB.videos}" reflow="true" rowKey="#{video_var.id}" paginator="true" rows="10" emptyMessage=" ">
+                                    <p:column headerText="Id" style="width: 70px;">
+                                        <h:outputText value="#{video_var.id}" />
+                                    </p:column>
+
+                                    <p:column headerText="Nome" sortBy="#{video_var.nome}" filterBy="#{video_var.nome}" >
+                                        <h:outputText value="#{video_var.nome}" />
+                                    </p:column>
+
+                                    <p:column headerText="Link normal">
+                                        <h:outputText value="#{video_var.src}" />
+                                    </p:column>
+                                    
+                                    <p:column headerText="Link embed">
+                                        <h:outputText value="#{video_var.src2}" />
+                                    </p:column>
+                                    
+                                    <p:column headerText="Data evento" style="width:  150px;">
+                                        <h:outputText value="#{video_var.dataEvento}">
+                                            <f:convertDateTime type="localDateTime" pattern="dd/MM/yyyy HH:mm"/>
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column headerText="Data presença" style="width:  150px;">
+                                        <h:outputText value="#{video_var.dataFinalPresenca}">
+                                            <f:convertDateTime type="localDateTime" pattern="dd/MM/yyyy HH:mm"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="Ação" style="width:  150px;">
+                                        <p:commandButton value="Excluir" icon="ui-icon-cancel"  style="width: 100%; background-color: #F57F17" actionListener="#{homeMB.setVideo(video_var)}" onclick="PF('modal_excluir_pais').show();">
+                                            <f:setPropertyActionListener value="#{video_var}" target="#{homeMB.video}"/>
+                                        </p:commandButton>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </div>
+
+                        <p:dialog header="Exclusão" widgetVar="modal_excluir_pais" modal="true" height="100" width="550">
+                            <h:panelGrid columns="2" style="width: 100%">
+                                <h:outputText value="Tem certeza que deseja excluir o item selecionado?" style="width: 100%"/>
+                                <p:selectOneButton value="#{homeMB.removerVideo}">
+                                    <f:selectItem itemLabel="Sim" itemValue="#{true}" />
+                                    <f:selectItem itemLabel="Não" itemValue="#{false}" />
+                                </p:selectOneButton>
+                            </h:panelGrid>
+
+                            <f:facet name="footer">
+                                <h:panelGrid columns="2" style="width: 100%">
+                                    <p:commandButton value="Excluir" icon="ui-icon-delete" ajax="false" action="#{homeMB.removerVideo()}" style="width: 100%"/>
+                                    <p:button value="Cancelar" icon="ui-icon-cancel" styleClass="blue-grey-btn"  style="width: 100%; background-color: #F57F17"/>
+                                </h:panelGrid>
+                            </f:facet>
+                        </p:dialog>
+
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

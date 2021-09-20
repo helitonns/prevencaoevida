@@ -20,7 +20,7 @@
                     <div class="card card-w-title" style="width: 100% !important;">
 
                         <div id="introduction" style="margin-left: auto; margin-right: auto; text-align: center; color: #EA2B81;">
-                            <p:graphicImage name="tamb.png" library="imagens" />
+                            <p:graphicImage name="tamb.png" library="imagens" class="logo" />
                         </div>
 
 
@@ -30,18 +30,18 @@
                                 <div class="ui-g ui-fluid form-group" >
                                     <div class="ui-g-12">
                                         <div style="margin-left: 20px; color: #085025">
-                                            <h2 style="text-align: center">Convidados do evento</h2>
+                                            <h2 style="text-align: center">Palestrantes do evento</h2>
                                         </div>
                                     </div>
 
                                     <div class="ui-g-6 ui-md-6 ui-sm-12">
                                         <center>
-                                            <p:graphicImage name="convidado1.png" library="imagens" style="border-radius: 10px;" />
+                                            <p:graphicImage name="convidado1.png" class="participantes" library="imagens" style="border-radius: 10px;" />
                                         </center>
                                     </div>
                                     <div class="ui-g-6 ui-md-6 ui-sm-12">
                                         <center>
-                                            <p:graphicImage name="convidado2.png" library="imagens" style="border-radius: 10px;"/>
+                                            <p:graphicImage name="convidado2.png" class="participantes" library="imagens" style="border-radius: 10px;"/>
                                         </center>
                                     </div>
 <!--                                </div>
@@ -58,7 +58,7 @@
                                     </div>
                                     <div class="ui-g-12">
                                         <center>
-                                            <p:graphicImage name="deputada.png" library="imagens" style="border-radius: 10px;"/>
+                                            <p:graphicImage name="deputada.png" class="participantes" library="imagens" style="border-radius: 10px;"/>
                                         </center>
                                     </div>
 
@@ -206,20 +206,20 @@
                                     <div class="ui-g-12 ui-md-6">
                                         <div class="ui-inputgroup">
                                             <h:panelGroup styleClass="md-inputfield">
-                                                <p:password id="idSenha1" value="#{indexMB.senha1}"  required="true" requiredMessage="Campo obrigatório!" match="idSenha2" validatorMessage="As senhas digitadas devem ser iguais e ter no mínimo 8 dígitos">
-                                                    <f:validateLength minimum="8" />
+                                                <p:password id="idSenha1" value="#{indexMB.senha1}"  required="true" requiredMessage="Campo obrigatório!" match="idSenha2" validatorMessage="As senhas digitadas devem ser iguais e ter no mínimo 5 dígitos">
+                                                    <f:validateLength minimum="5" />
                                                 </p:password>
-                                                <label>Digite sua senha: * (mínimo 8 dígitos)</label>
+                                                <label>Digite sua senha: * (mínimo 5 dígitos)</label>
                                             </h:panelGroup>     
                                         </div>
                                     </div>
                                     <div class="ui-g-12 ui-md-6">
                                         <div class="ui-inputgroup">
                                             <h:panelGroup styleClass="md-inputfield">
-                                                <p:password id="idSenha2" value="#{indexMB.senha2}"  required="true" requiredMessage="Campo obrigatório!" validatorMessage="As senhas digitadas devem ser iguais e ter no mínimo 8 dígitos">
-                                                    <f:validateLength minimum="8" />
+                                                <p:password id="idSenha2" value="#{indexMB.senha2}"  required="true" requiredMessage="Campo obrigatório!" validatorMessage="As senhas digitadas devem ser iguais e ter no mínimo 5 dígitos">
+                                                    <f:validateLength minimum="5" />
                                                 </p:password>
-                                                <label>Repita a senha digitada: * (mínimo 8 dígitos)</label>
+                                                <label>Repita a senha digitada: * (mínimo 5 dígitos)</label>
                                             </h:panelGroup>     
                                         </div>
                                     </div>
